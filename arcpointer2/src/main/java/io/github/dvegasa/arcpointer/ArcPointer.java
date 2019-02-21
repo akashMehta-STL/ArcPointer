@@ -200,9 +200,15 @@ public class ArcPointer extends View {
                 } else {
                     markLength = radius * notchesLengthRatio[notchesLengthRatio.length - 1];
                 }
+                float offsetTopX, offsetTopY;
+                if (i == compareVal) {
+                    offsetTopX = (float) ((radius + 15) * Math.sin(Math.toRadians(totalAngle)));
+                    offsetTopY = (float) ((radius + 15) * Math.cos(Math.toRadians(totalAngle)));
+                } else {
+                    offsetTopX = (float) ((radius) * Math.sin(Math.toRadians(totalAngle)));
+                    offsetTopY = (float) ((radius) * Math.cos(Math.toRadians(totalAngle)));
+                }
 
-                float offsetTopX = (float) (radius * Math.sin(Math.toRadians(totalAngle)));
-                float offsetTopY = (float) (radius * Math.cos(Math.toRadians(totalAngle)));
                 float offsetBottomX = (float) ((radius - markLength) * Math.sin(Math.toRadians(totalAngle)));
                 float offsetBottomY = (float) ((radius - markLength) * Math.cos(Math.toRadians(totalAngle)));
 
@@ -248,7 +254,7 @@ public class ArcPointer extends View {
             paint.setColor(0x00000000);
         }
 
-        canvas.drawLine(orLineStartX, orLineStartY, lineStopX, lineStopY, paint);
+//        canvas.drawLine(orLineStartX, orLineStartY, lineStopX, lineStopY, paint);
 
     }
 
