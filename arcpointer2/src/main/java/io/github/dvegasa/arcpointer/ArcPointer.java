@@ -96,7 +96,7 @@ public class ArcPointer extends View {
         // Init default values
         notchesLengthRatio = new float[]{0.15f};
         notchesStrokeWidth = new float[]{6f};
-        notchesColors = new int[]{0xFF999999};
+        notchesColors = new int[]{0xFF44DC91, 0xFFf48918, 0xFFFF0000};
         notches = new float[]{0.5f};
     }
 
@@ -155,12 +155,39 @@ public class ArcPointer extends View {
                 } else {
                     paint.setStrokeWidth(notchesStrokeWidth[notchesStrokeWidth.length - 1]);
                 }
-
-                if (i <= notchesColors.length - 1) {
-                    paint.setColor(notchesColors[i]);
+                float markerValue = (((value * 1000) / (notches.length - 1)) );
+                double compareVal ;
+                if (i < (notches.length / 2)) {
+                    if (i< (notches.length) / 3) {
+                        compareVal = Math.floor(markerValue - 0.35);
+                    } else {
+                        compareVal = Math.floor(markerValue);
+                    }
                 } else {
-                    paint.setColor(notchesColors[notchesColors.length - 1]);
+                    if (i < 2*(notches.length) / 3) {
+                        compareVal = Math.ceil(markerValue );
+                    } else {
+                        compareVal = Math.ceil(markerValue + 0.35);
+                    }
                 }
+                System.out.println("value = "+markerValue+" abs value = " + compareVal);
+                if (i > compareVal) {
+                    paint.setColor(0xFF999999);
+                } else {
+                    if (i <= notches.length / 3) {
+                        paint.setColor(notchesColors[0]);
+                    } else if (i <= 2*(notches.length) / 3) {
+                        paint.setColor(notchesColors[1]);
+                    } else {
+                        paint.setColor(notchesColors[2]);
+                    }
+                }
+
+//                if (i <= notchesColors.length - 1) {
+//                    paint.setColor(notchesColors[i]);
+//                } else {
+//                    paint.setColor(notchesColors[notchesColors.length - 1]);
+//                }
 
                 float startAngle = 90 - (workAngle / 2);
                 float additionalAngle = workAngle * notches[i];
@@ -190,6 +217,7 @@ public class ArcPointer extends View {
         /////////////////////////////////////////////////////////////
         // Line
         // angle {1}
+//        System.out.println("value = " + value);
         final float additional = workAngle * value;
         final float starting = 90 - (workAngle / 2);
 
@@ -210,7 +238,7 @@ public class ArcPointer extends View {
         final float orA = (float) (orC * Math.sin(Math.toRadians(angle)));
         final float orB = (float) (orC * Math.cos(Math.toRadians(angle)));
 
-        float orLineStartX = centerX + orA ;
+        float orLineStartX = centerX + orA;
         float orLineStartY = centerY - orB;
 
         paint.setColor(colorMarker);
