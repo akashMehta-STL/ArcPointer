@@ -85,24 +85,24 @@ public class SampleActivity extends AppCompatActivity {
 //        arcPointer.setNotchStrokeWidth(1.5f);
 //        arcPointer.setNotches(new float[] {0.1f, 0.2f, 0.5f});
 
-//        sb_value.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                float value = 0.01f * progress;
-//                arcPointer.setValue(value);
-//                tv_value.setText(String.format("value = %.2f", value));
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//        });
+        sb_value.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float value = 0.01f * progress;
+                arcPointer.setValue(value);
+                tv_value.setText(String.format("value = %.2f", value));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         /////////////////////////////////////////////////////////////
         //

@@ -26,7 +26,7 @@ public class ArcPointer extends View {
     private int colorLine;
     private int colorMarker;
     private float lineLengthRatio = 0.8f;
-    private float markerLengthRatio = -0.35f;
+    private float markerLengthRatio = -0.25f;
     private float lineStrokeWidth = 2;
     private float markerStrokeWidth = 7;
 
@@ -50,7 +50,7 @@ public class ArcPointer extends View {
     private float[] notches;
     private boolean isAnimated;
     private long animationVelocity;
-    private float value = 0.37f;
+    private float value = 0.47f;
 
     private float[] notchesLengthRatio; //added in v1.0.2
     private float[] notchesStrokeWidth; //added in v1.0.2
@@ -195,8 +195,7 @@ public class ArcPointer extends View {
 
         final float angle = additional + starting - 90;
         // end {1}
-
-        final float c = radius * lineLengthRatio; // line's length
+        final float c = (radius + 15) * lineLengthRatio; // line's length
         final float a = (float) (c * Math.sin(Math.toRadians(angle))); // x offset
         final float b = (float) (c * Math.cos(Math.toRadians(angle))); // y offset
 
@@ -211,8 +210,8 @@ public class ArcPointer extends View {
         final float orA = (float) (orC * Math.sin(Math.toRadians(angle)));
         final float orB = (float) (orC * Math.cos(Math.toRadians(angle)));
 
-        final float orLineStartX = centerX + orA;
-        final float orLineStartY = centerY - orB;
+        float orLineStartX = centerX + orA ;
+        float orLineStartY = centerY - orB;
 
         paint.setColor(colorMarker);
         paint.setStrokeWidth(markerStrokeWidth);
