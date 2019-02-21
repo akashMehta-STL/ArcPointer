@@ -22,13 +22,13 @@ public class ArcPointer extends View {
 
     private int radius;
     private int colorBackground;
-    private int workAngle;
+    private int workAngle = 270;
     private int colorLine;
     private int colorMarker;
-    private float lineLengthRatio;
-    private float markerLengthRatio;
-    private float lineStrokeWidth;
-    private float markerStrokeWidth;
+    private float lineLengthRatio = 0.8f;
+    private float markerLengthRatio = -0.35f;
+    private float lineStrokeWidth = 2;
+    private float markerStrokeWidth = 7;
 
     /**
      * @deprecated Since 1.0.2, replaced by {@link #notchesColors}
@@ -39,18 +39,18 @@ public class ArcPointer extends View {
      * @deprecated Since 1.0.2, replaced by {@link #notchesStrokeWidth}
      */
     @Deprecated
-    private float notchStrokeWidth;
+    private float notchStrokeWidth = 6;
 
     /**
      * @deprecated Since 1.0.2, replaced by {@link #notchesLengthRatio}
      */
     @Deprecated
-    private float notchLengthRatio;
+    private float notchLengthRatio = 0.15f;
 
     private float[] notches;
     private boolean isAnimated;
     private long animationVelocity;
-    private float value;
+    private float value = 0.37f;
 
     private float[] notchesLengthRatio; //added in v1.0.2
     private float[] notchesStrokeWidth; //added in v1.0.2
@@ -78,20 +78,14 @@ public class ArcPointer extends View {
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.ArcPointer, 0, 0);
         try {
-            colorBackground = a.getColor(R.styleable.ArcPointer_colorBackground, 0xFFCCCCCC);
+            colorBackground = a.getColor(R.styleable.ArcPointer_colorBackground, 0xFFFFFFFF);
             radius = a.getDimensionPixelSize(R.styleable.ArcPointer_radius, 250);
-            workAngle = a.getInt(R.styleable.ArcPointer_workAngle, 120);
+            workAngle = a.getInt(R.styleable.ArcPointer_workAngle, 270);
             colorLine = a.getColor(R.styleable.ArcPointer_colorLine, Color.BLACK);
             colorMarker = a.getColor(R.styleable.ArcPointer_colorMarker, 0xFFEE5622);
 
-            lineLengthRatio = a.getFloat(R.styleable.ArcPointer_lineLengthRatio, 0.8f);
-            markerLengthRatio = a.getFloat(R.styleable.ArcPointer_markerLengthRatio, 0.4f);
-            lineStrokeWidth = a.getFloat(R.styleable.ArcPointer_lineStrokeWidth, 2f);
-            markerStrokeWidth = a.getFloat(R.styleable.ArcPointer_markerStrokeWidth, 3f);
             colorNotches = a.getColor(R.styleable.ArcPointer_colorNotches, 0xFF999999);
 
-            notchLengthRatio = a.getFloat(R.styleable.ArcPointer_notchLengthRatio, 0.2f);
-            notchStrokeWidth = a.getFloat(R.styleable.ArcPointer_notchStrokeWidth, 1.5f);
             animationVelocity = (long) a.getInt(R.styleable.ArcPointer_animationVelocity, 1500);
         } finally {
             a.recycle();
@@ -100,8 +94,8 @@ public class ArcPointer extends View {
 
         /////////////////////////////////////////////////////////////
         // Init default values
-        notchesLengthRatio = new float[]{0.2f};
-        notchesStrokeWidth = new float[]{3f};
+        notchesLengthRatio = new float[]{0.15f};
+        notchesStrokeWidth = new float[]{6f};
         notchesColors = new int[]{0xFF999999};
         notches = new float[]{0.5f};
     }
@@ -210,16 +204,6 @@ public class ArcPointer extends View {
         final float lineStartY = centerY;
         float lineStopX = lineStartX + a;
         float lineStopY = lineStartY - b;
-
-        paint.setColor(colorLine);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(lineStrokeWidth);
-
-        if (lineStrokeWidth <= 0) {
-            paint.setColor(0x00000000);
-        }
-
-        canvas.drawLine(lineStartX, lineStartY, lineStopX, lineStopY, paint);
 
         /////////////////////////////////////////////////////////////
         // Marker

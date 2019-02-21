@@ -29,13 +29,11 @@
         android:layout_marginTop="16dp"
         android:padding="0dp"
         android:paddingTop="0dp"
-        app:colorBackground="#d7d7d7"
+        app:colorBackground="@android:color/transparent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:radius="100dp"
-        app:colorNotches="@color/colorAccent"
-        app:workAngle="120" />
+        app:colorNotches="@color/colorAccent"/>
 
     <ScrollView
         android:layout_width="0dp"
