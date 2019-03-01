@@ -62,6 +62,8 @@ public class ArcPointer extends View {
     private float[] notchesLengthRatio; //added in v1.0.2
     private float[] notchesStrokeWidth; //added in v1.0.2
     private int[] notchesColors; //added in v1.0.2
+    private int singlePartColor = 0xFF16a4fa;
+    private float[] rangeAr;
 
     private ValueAnimator animation = null;
     private float finalValue;
@@ -103,7 +105,7 @@ public class ArcPointer extends View {
         // Init default values
         notchesLengthRatio = new float[]{0.15f};
         notchesStrokeWidth = new float[]{6f};
-        notchesColors = new int[]{0xFF44DC91, 0xFFf48918, 0xFFFF0000};
+        notchesColors = new int[]{0xff44dc91, 0xfff48918, 0xFFfe5965, 0xFF16a4fa};
         notches = new float[]{0.5f};
     }
 
@@ -154,9 +156,6 @@ public class ArcPointer extends View {
 
         if (notches != null) {
             for (int i = 0; i < notches.length; i++) {
-
-                paint.setColor(colorNotches);
-
                 if (i <= notchesStrokeWidth.length - 1) {
                     paint.setStrokeWidth(notchesStrokeWidth[i]);
                 } else {
@@ -174,12 +173,36 @@ public class ArcPointer extends View {
                 if (i > compareVal) {
                     paint.setColor(0xFF999999);
                 } else {
-                    if (i < notches.length / 3) {
-                        paint.setColor(notchesColors[0]);
-                    } else if (i < 2 * (notches.length) / 3) {
-                        paint.setColor(notchesColors[1]);
-                    } else {
-                        paint.setColor(notchesColors[2]);
+                    switch (gaugeType) {
+                        case TYPE_DEFAULT_GAUGE:
+                            if (i < rangeAr[0]) {
+                                paint.setColor(notchesColors[0]);
+                            } else if (i < rangeAr[1]) {
+                                paint.setColor(notchesColors[1]);
+                            } else {
+                                paint.setColor(notchesColors[2]);
+                            }
+                            break;
+                        case TYPE_FOUR_PART_GAUGE:
+                            if (i < rangeAr[0]) {
+                                paint.setColor(notchesColors[0]);
+                            } else if (i < rangeAr[1]) {
+                                paint.setColor(notchesColors[1]);
+                            } else if (i < rangeAr[2]) {
+                                paint.setColor(notchesColors[2]);
+                            } else {
+                                paint.setColor(notchesColors[3]);
+                            }
+                            break;
+                        case TYPE_SINGLE_PART_GAUGE:
+                            paint.setColor(singlePartColor);
+                            break;
+                        case TYPE_TWO_MARKER_GAUGE:
+                            paint.setColor(0xFF999999);
+                            if (i > rangeAr[0] && i < rangeAr[1]) {
+                                paint.setColor(singlePartColor);
+                            }
+                            break;
                     }
                 }
 
@@ -195,13 +218,24 @@ public class ArcPointer extends View {
                     markLength = radius * notchesLengthRatio[notchesLengthRatio.length - 1];
                 }
                 float offsetTopX, offsetTopY;
-                if (i == compareVal) {
-                    offsetTopX = (float) ((radius + 15) * Math.sin(Math.toRadians(totalAngle)));
-                    offsetTopY = (float) ((radius + 15) * Math.cos(Math.toRadians(totalAngle)));
+                if (gaugeType != TYPE_TWO_MARKER_GAUGE) {
+                    if (i == compareVal && value != 0) {
+                        offsetTopX = (float) ((radius + 15) * Math.sin(Math.toRadians(totalAngle)));
+                        offsetTopY = (float) ((radius + 15) * Math.cos(Math.toRadians(totalAngle)));
+                    } else {
+                        offsetTopX = (float) ((radius) * Math.sin(Math.toRadians(totalAngle)));
+                        offsetTopY = (float) ((radius) * Math.cos(Math.toRadians(totalAngle)));
+                    }
                 } else {
-                    offsetTopX = (float) ((radius) * Math.sin(Math.toRadians(totalAngle)));
-                    offsetTopY = (float) ((radius) * Math.cos(Math.toRadians(totalAngle)));
+                    if ((i == (int) rangeAr[0]+1 || i == (int) rangeAr[1] || i == compareVal) && value != 0) {
+                        offsetTopX = (float) ((radius + 15) * Math.sin(Math.toRadians(totalAngle)));
+                        offsetTopY = (float) ((radius + 15) * Math.cos(Math.toRadians(totalAngle)));
+                    } else {
+                        offsetTopX = (float) ((radius) * Math.sin(Math.toRadians(totalAngle)));
+                        offsetTopY = (float) ((radius) * Math.cos(Math.toRadians(totalAngle)));
+                    }
                 }
+
 
                 float offsetBottomX = (float) ((radius - markLength) * Math.sin(Math.toRadians(totalAngle)));
                 float offsetBottomY = (float) ((radius - markLength) * Math.cos(Math.toRadians(totalAngle)));
@@ -582,5 +616,9 @@ public class ArcPointer extends View {
 
     public void setGaugeType(int gaugeType) {
         this.gaugeType = gaugeType;
+    }
+
+    public void setGaugeMeterRange(float[] range) {
+        this.rangeAr = range;
     }
 }
