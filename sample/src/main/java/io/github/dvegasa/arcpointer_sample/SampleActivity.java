@@ -1,7 +1,5 @@
 package io.github.dvegasa.arcpointer_sample;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import io.github.dvegasa.arcpointer.ArcPointer;
@@ -26,11 +23,20 @@ public class SampleActivity extends AppCompatActivity {
     public static final int NOTCH_COUNT = 33;
     public static final int RADIUS = 170;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sample);
+        initViews();
+        maxNotchReading = 100;
+    }
+
     private void initViews() {
         arcPointer = (ArcPointer) findViewById(R.id.arcpointer);
         btnValue = (Button) findViewById(R.id.btnValue);
         etNotchReading = (EditText) findViewById(R.id.etNotchReading);
         centerTextView = (TextView) findViewById(R.id.tvCenterText);
+        setCenterText("Value");
         btnValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +50,8 @@ public class SampleActivity extends AppCompatActivity {
                 }
             }
         });
+        arcPointer.setNotches(NOTCH_COUNT);
+        arcPointer.setRadius(RADIUS);
     }
 
     public void setCenterText(String centerText) {
@@ -52,17 +60,6 @@ public class SampleActivity extends AppCompatActivity {
 
     public void setNotchReading(int notchReading) {
         this.maxNotchReading = notchReading;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample);
-        initViews();
-
-        arcPointer.setNotches(NOTCH_COUNT);
-        arcPointer.setRadius(RADIUS);
-        maxNotchReading = 100;
     }
 
     private void setAnimation() {

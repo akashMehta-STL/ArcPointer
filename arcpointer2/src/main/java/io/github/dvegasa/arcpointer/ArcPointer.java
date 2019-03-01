@@ -155,39 +155,27 @@ public class ArcPointer extends View {
                 } else {
                     paint.setStrokeWidth(notchesStrokeWidth[notchesStrokeWidth.length - 1]);
                 }
-                float markerValue = (((value * 1000) / (notches.length - 1)) );
-                double compareVal ;
-                if (i < (notches.length / 2)) {
-                    if (i< (notches.length) / 3) {
-                        compareVal = Math.floor(markerValue - 0.35);
-                    } else {
-                        compareVal = Math.floor(markerValue);
-                    }
+                float markerValue = (((value * 1000) / (notches.length - 1)));
+                double compareVal = Math.floor(markerValue);
+
+                if (value <= 1 && value > 0.97) {
+                    compareVal += (100 / notches.length);
                 } else {
-                    if (i < 2*(notches.length) / 3) {
-                        compareVal = Math.ceil(markerValue );
-                    } else {
-                        compareVal = Math.ceil(markerValue + 0.35);
-                    }
+                    compareVal += 1;
                 }
-                System.out.println("value = "+markerValue+" abs value = " + compareVal);
+                System.out.println("value = " + markerValue + " abs value = " + compareVal);
+
                 if (i > compareVal) {
                     paint.setColor(0xFF999999);
                 } else {
                     if (i <= notches.length / 3) {
                         paint.setColor(notchesColors[0]);
-                    } else if (i <= 2*(notches.length) / 3) {
+                    } else if (i <= 2 * (notches.length) / 3) {
                         paint.setColor(notchesColors[1]);
                     } else {
                         paint.setColor(notchesColors[2]);
                     }
                 }
-
-//                if (i <= notchesColors.length - 1) {
-//                    paint.setColor(notchesColors[i]);
-//                } else {
-//                    paint.setColor(notchesColors[notchesColors.length - 1]);
-//                }
 
                 float startAngle = 90 - (workAngle / 2);
                 float additionalAngle = workAngle * notches[i];
@@ -459,6 +447,7 @@ public class ArcPointer extends View {
     }
 
     public void setNotches(int n) {
+
         if (n < 0) n = 0;
 
         float[] m = new float[n];
