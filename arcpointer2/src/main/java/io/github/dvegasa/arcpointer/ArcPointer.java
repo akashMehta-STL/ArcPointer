@@ -30,6 +30,13 @@ public class ArcPointer extends View {
     private float lineStrokeWidth = 2;
     private float markerStrokeWidth = 7;
 
+    public static final int TYPE_DEFAULT_GAUGE = 0;
+    public static final int TYPE_FOUR_PART_GAUGE = 1;
+    public static final int TYPE_SINGLE_PART_GAUGE = 2;
+    public static final int TYPE_TWO_MARKER_GAUGE = 4;
+
+    private int gaugeType = 0;
+
     /**
      * @deprecated Since 1.0.2, replaced by {@link #notchesColors}
      */
@@ -163,14 +170,13 @@ public class ArcPointer extends View {
                 } else {
                     compareVal += 1;
                 }
-                System.out.println("value = " + markerValue + " abs value = " + compareVal);
 
                 if (i > compareVal) {
                     paint.setColor(0xFF999999);
                 } else {
-                    if (i <= notches.length / 3) {
+                    if (i < notches.length / 3) {
                         paint.setColor(notchesColors[0]);
-                    } else if (i <= 2 * (notches.length) / 3) {
+                    } else if (i < 2 * (notches.length) / 3) {
                         paint.setColor(notchesColors[1]);
                     } else {
                         paint.setColor(notchesColors[2]);
@@ -572,5 +578,9 @@ public class ArcPointer extends View {
 
     public void setAnimationVelocity(long animationVelocity) {
         this.animationVelocity = animationVelocity;
+    }
+
+    public void setGaugeType(int gaugeType) {
+        this.gaugeType = gaugeType;
     }
 }

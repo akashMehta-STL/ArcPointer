@@ -1,5 +1,6 @@
 package io.github.dvegasa.arcpointer_sample;
 
+import android.animation.ArgbEvaluator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,7 @@ public class SampleActivity extends AppCompatActivity {
         });
         arcPointer.setNotches(NOTCH_COUNT);
         arcPointer.setRadius(RADIUS);
+        arcPointer.setGaugeType(ArcPointer.TYPE_DEFAULT_GAUGE);
     }
 
     public void setCenterText(String centerText) {
