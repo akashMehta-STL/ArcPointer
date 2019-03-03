@@ -59,6 +59,20 @@ class ArcHelper {
         }
     }
 
+    static ArcHelper getThreePartArc(Context context,
+                                     ArcPointer arcPointer,
+                                     int max, int min,
+                                     float[] parameterRange,
+                                     String[] colorRange, int notchReading) {
+        return ArcHelper.getInstance(context, arcPointer)
+                .setTotalRangeMax(max)
+                .setTotalRangeMin(min)
+                .setRangeList(parameterRange)
+                .setColorList(colorRange)
+                .setNotchReading(notchReading)
+                .setGaugeType(ArcPointer.TYPE_DEFAULT_GAUGE);
+    }
+
     private void setAnimation() {
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {

@@ -232,7 +232,8 @@ public class ArcPointer extends View {
                         offsetTopY = (float) ((radius) * Math.cos(Math.toRadians(totalAngle)));
                     }
                 } else {
-                    if ((i == (int) rangeAr[0]+1 || i == (int) rangeAr[1] || i == compareVal) && value != 0) {
+                    if ((i == (int) rangeAr[0] + 1 || i == (int) rangeAr[1] || (i == compareVal
+                            && compareVal < (int) rangeAr[0] + 1)) && value != 0) {
                         offsetTopX = (float) ((radius + 15) * Math.sin(Math.toRadians(totalAngle)));
                         offsetTopY = (float) ((radius + 15) * Math.cos(Math.toRadians(totalAngle)));
                     } else {
