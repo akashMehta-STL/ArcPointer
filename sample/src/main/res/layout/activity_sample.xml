@@ -15,9 +15,7 @@
             android:id="@+id/arcpointer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            app:colorBackground="@android:color/transparent"
-            app:colorNotches="@color/colorAccent" />
+            android:padding="5dp" />
 
         <TextView
             android:id="@+id/tvCenterText"
