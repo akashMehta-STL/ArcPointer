@@ -1,4 +1,4 @@
-package io.github.dvegasa.arcpointer_sample;
+package io.github.dvegasa.arcpointer;
 
 import android.content.Context;
 import android.os.Handler;
@@ -6,9 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import io.github.dvegasa.arcpointer.ArcPointer;
-
-class ArcHelper {
+public class ArcHelper {
 
     private static ArcHelper getInstance(Context context, ArcPointer arcPointer) {
         return new ArcHelper(context, arcPointer);
@@ -39,7 +37,7 @@ class ArcHelper {
     private float[] rangeList;
     private String[] colorList;
 
-    void startAnimation() {
+    public void startAnimation() {
         notchReading = 0;
         arcPointer.setNotches(NOTCH_COUNT);
         arcPointer.setRadius(RADIUS);
@@ -62,7 +60,7 @@ class ArcHelper {
         }
     }
 
-    static ArcHelper getSinglePartArc(Context context,
+    public static ArcHelper getSinglePartArc(Context context,
                                       ArcPointer arcPointer,
                                       int max, int min,
                                       String[] colorRange, int notchReading) {
@@ -75,7 +73,7 @@ class ArcHelper {
                 .setGaugeType(ArcPointer.TYPE_SINGLE_PART_GAUGE);
     }
 
-    static ArcHelper getThreePartArc(Context context,
+    public static ArcHelper getThreePartArc(Context context,
                                      ArcPointer arcPointer,
                                      int max, int min,
                                      float[] parameterRange,
@@ -90,7 +88,7 @@ class ArcHelper {
     }
 
 
-    static ArcHelper getTwoMarkerGuage(Context context,
+    public static ArcHelper getTwoMarkerGuage(Context context,
                                        ArcPointer arcPointer,
                                        int max, int min,
                                        String singlePartColor,
@@ -105,7 +103,7 @@ class ArcHelper {
                 .setGaugeType(ArcPointer.TYPE_TWO_MARKER_GAUGE);
     }
 
-    static ArcHelper getFourPartGaugeMeter(Context context,
+    public static ArcHelper getFourPartGaugeMeter(Context context,
                                            ArcPointer arcPointer,
                                            int max, int min,
                                            float[] parameterRange,

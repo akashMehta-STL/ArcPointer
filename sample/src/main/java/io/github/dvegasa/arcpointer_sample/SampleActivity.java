@@ -1,16 +1,14 @@
 package io.github.dvegasa.arcpointer_sample;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.github.dvegasa.arcpointer.ArcHelper;
 import io.github.dvegasa.arcpointer.ArcPointer;
 
 public class SampleActivity extends AppCompatActivity {
