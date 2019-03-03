@@ -19,10 +19,10 @@ class ArcHelper {
         this.arcPointer = arcPointer;
     }
 
-    public static final int GAUGE_ANIMATION_DELAY = 20;
-    public static final int GAUGE_TEXT_FADE_DELAY = 10;
-    public static final int NOTCH_COUNT = 33;
-    public static final int RADIUS = 170;
+    private static final int GAUGE_ANIMATION_DELAY = 20;
+    private static final int GAUGE_TEXT_FADE_DELAY = 10;
+    private static final int NOTCH_COUNT = 33;
+    private static final int RADIUS = 170;
     private final Context context;
     private final ArcPointer arcPointer;
 
@@ -36,7 +36,7 @@ class ArcHelper {
     private float[] rangeList;
     private String[] colorList;
 
-    public void startAnimation() {
+    void startAnimation() {
         notchReading = 0;
         arcPointer.setNotches(NOTCH_COUNT);
         arcPointer.setRadius(RADIUS);
@@ -47,7 +47,7 @@ class ArcHelper {
 
         try {
             if (gaugeType != ArcPointer.TYPE_TWO_MARKER_GAUGE) {
-                int position = (int) getValuePos(totalRangeMin, totalRangeMax, notchReading);
+                int position = (int) getValuePos(totalRangeMin, totalRangeMax, maxNotchReading);
                 setNotchReading(position);
             } else {
                 int position = (int) getValuePos(totalRangeMin, totalRangeMax, totalRangeMax);
@@ -56,6 +56,28 @@ class ArcHelper {
             setAnimation();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void setAnimation() {
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (notchReading < maxNotchReading) {
+                    float value = 0.01f * notchReading;
+                    arcPointer.setValue(value);
+                    notchReading++;
+                    handler.postDelayed(this, GAUGE_ANIMATION_DELAY);
+                }
+            }
+        };
+        handler.postDelayed(runnable, GAUGE_TEXT_FADE_DELAY);
+
+        Animation aniFade = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+        aniFade.setDuration(GAUGE_ANIMATION_DELAY * maxNotchReading);
+        if (centerTextView != null) {
+            centerTextView.startAnimation(aniFade);
         }
     }
 
@@ -96,9 +118,7 @@ class ArcHelper {
     }
 
     private float getValuePos(float min, float max, float value) {
-        float range = max - min;
-        float outPercent = ((value - min) * 100) / range;
-        return outPercent;
+        return ((value - min) * 100) / (max - min);
     }
 
     private float[] getGaugeMeterRange(float min, float max, float rangeAr[]) {
@@ -109,27 +129,5 @@ class ArcHelper {
             outputRange[i] = (NOTCH_COUNT * outPercent) / 100;
         }
         return outputRange;
-    }
-
-    private void setAnimation() {
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (notchReading < maxNotchReading) {
-                    float value = 0.01f * notchReading;
-                    arcPointer.setValue(value);
-                    notchReading++;
-                    handler.postDelayed(this, GAUGE_ANIMATION_DELAY);
-                }
-            }
-        };
-        handler.postDelayed(runnable, GAUGE_TEXT_FADE_DELAY);
-
-        Animation aniFade = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-        aniFade.setDuration(GAUGE_ANIMATION_DELAY * maxNotchReading);
-        if (centerTextView != null) {
-            centerTextView.startAnimation(aniFade);
-        }
     }
 }
