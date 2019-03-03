@@ -10,7 +10,7 @@ import io.github.dvegasa.arcpointer.ArcPointer;
 
 class ArcHelper {
 
-    static ArcHelper getInstance(Context context, ArcPointer arcPointer) {
+    private static ArcHelper getInstance(Context context, ArcPointer arcPointer) {
         return new ArcHelper(context, arcPointer);
     }
 
@@ -32,6 +32,9 @@ class ArcHelper {
     private int notchReading = 0;
     private int maxNotchReading;
     private TextView centerTextView;
+
+    private String defaultColor;
+    private String singlePartColor;
 
     private float[] rangeList;
     private String[] colorList;
@@ -59,6 +62,19 @@ class ArcHelper {
         }
     }
 
+    static ArcHelper getSinglePartArc(Context context,
+                                      ArcPointer arcPointer,
+                                      int max, int min,
+                                      String[] colorRange, int notchReading) {
+        return ArcHelper.getInstance(context, arcPointer)
+                .setTotalRangeMax(max)
+                .setTotalRangeMin(min)
+                .setRangeList(new float[] {6})
+                .setColorList(colorRange)
+                .setNotchReading(notchReading)
+                .setGaugeType(ArcPointer.TYPE_SINGLE_PART_GAUGE);
+    }
+
     static ArcHelper getThreePartArc(Context context,
                                      ArcPointer arcPointer,
                                      int max, int min,
@@ -71,6 +87,36 @@ class ArcHelper {
                 .setColorList(colorRange)
                 .setNotchReading(notchReading)
                 .setGaugeType(ArcPointer.TYPE_DEFAULT_GAUGE);
+    }
+
+
+    static ArcHelper getTwoMarkerGuage(Context context,
+                                       ArcPointer arcPointer,
+                                       int max, int min,
+                                       String singlePartColor,
+                                       float[] parameterRange,
+                                       int notchReading) {
+        return ArcHelper.getInstance(context, arcPointer)
+                .setTotalRangeMax(max)
+                .setTotalRangeMin(min)
+                .setRangeList(parameterRange)
+                .setNotchReading(notchReading)
+                .setSinglePartColor(singlePartColor)
+                .setGaugeType(ArcPointer.TYPE_TWO_MARKER_GAUGE);
+    }
+
+    static ArcHelper getFourPartGaugeMeter(Context context,
+                                           ArcPointer arcPointer,
+                                           int max, int min,
+                                           float[] parameterRange,
+                                           String[] colorRange, int notchReading) {
+        return ArcHelper.getInstance(context, arcPointer)
+                .setTotalRangeMax(max)
+                .setTotalRangeMin(min)
+                .setRangeList(parameterRange)
+                .setColorList(colorRange)
+                .setNotchReading(notchReading)
+                .setGaugeType(ArcPointer.TYPE_FOUR_PART_GAUGE);
     }
 
     private void setAnimation() {
@@ -95,6 +141,19 @@ class ArcHelper {
         }
     }
 
+
+    public ArcHelper setDefaultColor(String defaultColor) {
+        this.defaultColor = defaultColor;
+        arcPointer.setDefaultColor(defaultColor);
+        return this;
+    }
+
+    public ArcHelper setSinglePartColor(String singlePartColor) {
+        this.singlePartColor = singlePartColor;
+        arcPointer.setSinglePartColor(singlePartColor);
+        return this;
+    }
+
     public ArcHelper setCenterTextView(TextView centerTextView, String centerText) {
         this.centerTextView = centerTextView;
         this.centerTextView.setText(centerText);
@@ -113,6 +172,7 @@ class ArcHelper {
 
     public ArcHelper setGaugeType(int gaugeType) {
         this.gaugeType = gaugeType;
+        arcPointer.setGaugeType(gaugeType);
         return this;
     }
 

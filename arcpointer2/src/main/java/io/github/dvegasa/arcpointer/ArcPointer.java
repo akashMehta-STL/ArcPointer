@@ -62,7 +62,9 @@ public class ArcPointer extends View {
     private float[] notchesLengthRatio; //added in v1.0.2
     private float[] notchesStrokeWidth; //added in v1.0.2
     private String[] notchesColors; //added in v1.0.2
-    private int singlePartColor = 0xFF16a4fa;
+
+    private String singlePartColor = "#FF16a4fa";
+    private String defaultColor = "#FF999999";
     private float[] rangeAr;
 
     private ValueAnimator animation = null;
@@ -93,7 +95,7 @@ public class ArcPointer extends View {
             colorLine = a.getColor(R.styleable.ArcPointer_colorLine, Color.BLACK);
             colorMarker = a.getColor(R.styleable.ArcPointer_colorMarker, 0xFFEE5622);
 
-            colorNotches = a.getColor(R.styleable.ArcPointer_colorNotches, 0xFF999999);
+            colorNotches = a.getColor(R.styleable.ArcPointer_colorNotches, Color.parseColor(defaultColor));
 
             animationVelocity = (long) a.getInt(R.styleable.ArcPointer_animationVelocity, 1500);
         } finally {
@@ -105,7 +107,6 @@ public class ArcPointer extends View {
         // Init default values
         notchesLengthRatio = new float[]{0.15f};
         notchesStrokeWidth = new float[]{6f};
-        notchesColors = new String[]{"#ff44dc91", "#fff48918", "#FFfe5965", "#FF16a4fa"};
         notches = new float[]{0.5f};
     }
 
@@ -171,7 +172,7 @@ public class ArcPointer extends View {
                 }
 
                 if (i > compareVal) {
-                    paint.setColor(0xFF999999);
+                    paint.setColor(Color.parseColor(defaultColor));
                 } else {
                     try {
                         switch (gaugeType) {
@@ -196,12 +197,12 @@ public class ArcPointer extends View {
                                 }
                                 break;
                             case TYPE_SINGLE_PART_GAUGE:
-                                paint.setColor(singlePartColor);
+                                paint.setColor(Color.parseColor(singlePartColor));
                                 break;
                             case TYPE_TWO_MARKER_GAUGE:
-                                paint.setColor(0xFF999999);
+                                paint.setColor(Color.parseColor(defaultColor));
                                 if (i > rangeAr[0] && i < rangeAr[1]) {
-                                    paint.setColor(singlePartColor);
+                                    paint.setColor(Color.parseColor(singlePartColor));
                                 }
                                 break;
                         }
@@ -486,6 +487,14 @@ public class ArcPointer extends View {
     public void setMarkerStrokeWidth(float markerStrokeWidth) {
         this.markerStrokeWidth = markerStrokeWidth;
         invalidate();
+    }
+
+    public void setSinglePartColor(String singlePartColor) {
+        this.singlePartColor = singlePartColor;
+    }
+
+    public void setDefaultColor(String defaultColor) {
+        this.defaultColor = defaultColor;
     }
 
     public float[] getNotches() {
