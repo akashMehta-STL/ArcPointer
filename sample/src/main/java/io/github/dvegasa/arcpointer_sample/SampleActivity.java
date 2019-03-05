@@ -61,8 +61,9 @@ public class SampleActivity extends AppCompatActivity {
                         // Ranges
                         float[] parameterRange = new float[]{6, 9, 11};
                         String[] colorRange = new String[]{"#ff44dc91", "#fff48918", "#FFfe5965", "#FF16a4fa"};
-                        ArcHelper.getFourPartGaugeMeter(SampleActivity.this, arcPointer, max, min,
+                        ArcHelper.getFourPartGaugeMeter(SampleActivity.this, max, min,
                                 parameterRange, colorRange, notchReading)
+                                .setArcPointer(arcPointer)
                                 .setCenterTextView(centerTextView, "120/20")
                                 .startAnimation();
 

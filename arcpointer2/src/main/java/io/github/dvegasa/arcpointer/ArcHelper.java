@@ -8,13 +8,12 @@ import android.widget.TextView;
 
 public class ArcHelper {
 
-    private static ArcHelper getInstance(Context context, ArcPointer arcPointer) {
-        return new ArcHelper(context, arcPointer);
+    private static ArcHelper getInstance(Context context) {
+        return new ArcHelper(context);
     }
 
-    private ArcHelper(Context context, ArcPointer arcPointer) {
+    private ArcHelper(Context context) {
         this.context = context;
-        this.arcPointer = arcPointer;
     }
 
     private static final int GAUGE_ANIMATION_DELAY = 20;
@@ -22,7 +21,7 @@ public class ArcHelper {
     private static final int NOTCH_COUNT = 33;
     private static final int RADIUS = 170;
     private final Context context;
-    private final ArcPointer arcPointer;
+    private ArcPointer arcPointer;
 
     private int totalRangeMin;
     private int totalRangeMax;
@@ -45,6 +44,9 @@ public class ArcHelper {
             arcPointer.setNotchesColors(colorList);
         }
         arcPointer.setGaugeMeterRange(getGaugeMeterRange(totalRangeMin, totalRangeMax, rangeList));
+        arcPointer.setDefaultColor(defaultColor);
+        arcPointer.setSinglePartColor(singlePartColor);
+        arcPointer.setGaugeType(gaugeType);
 
         try {
             if (gaugeType != ArcPointer.TYPE_TWO_MARKER_GAUGE) {
@@ -61,24 +63,22 @@ public class ArcHelper {
     }
 
     public static ArcHelper getSinglePartArc(Context context,
-                                      ArcPointer arcPointer,
-                                      int max, int min,
-                                      String[] colorRange, int notchReading) {
-        return ArcHelper.getInstance(context, arcPointer)
+                                             int max, int min,
+                                             String[] colorRange, int notchReading) {
+        return ArcHelper.getInstance(context)
                 .setTotalRangeMax(max)
                 .setTotalRangeMin(min)
-                .setRangeList(new float[] {6})
+                .setRangeList(new float[]{6})
                 .setColorList(colorRange)
                 .setNotchReading(notchReading)
                 .setGaugeType(ArcPointer.TYPE_SINGLE_PART_GAUGE);
     }
 
     public static ArcHelper getThreePartArc(Context context,
-                                     ArcPointer arcPointer,
-                                     int max, int min,
-                                     float[] parameterRange,
-                                     String[] colorRange, int notchReading) {
-        return ArcHelper.getInstance(context, arcPointer)
+                                            int max, int min,
+                                            float[] parameterRange,
+                                            String[] colorRange, int notchReading) {
+        return ArcHelper.getInstance(context)
                 .setTotalRangeMax(max)
                 .setTotalRangeMin(min)
                 .setRangeList(parameterRange)
@@ -89,12 +89,11 @@ public class ArcHelper {
 
 
     public static ArcHelper getTwoMarkerGuage(Context context,
-                                       ArcPointer arcPointer,
-                                       int max, int min,
-                                       String singlePartColor,
-                                       float[] parameterRange,
-                                       int notchReading) {
-        return ArcHelper.getInstance(context, arcPointer)
+                                              int max, int min,
+                                              String singlePartColor,
+                                              float[] parameterRange,
+                                              int notchReading) {
+        return ArcHelper.getInstance(context)
                 .setTotalRangeMax(max)
                 .setTotalRangeMin(min)
                 .setRangeList(parameterRange)
@@ -104,11 +103,10 @@ public class ArcHelper {
     }
 
     public static ArcHelper getFourPartGaugeMeter(Context context,
-                                           ArcPointer arcPointer,
-                                           int max, int min,
-                                           float[] parameterRange,
-                                           String[] colorRange, int notchReading) {
-        return ArcHelper.getInstance(context, arcPointer)
+                                                  int max, int min,
+                                                  float[] parameterRange,
+                                                  String[] colorRange, int notchReading) {
+        return ArcHelper.getInstance(context)
                 .setTotalRangeMax(max)
                 .setTotalRangeMin(min)
                 .setRangeList(parameterRange)
@@ -142,19 +140,22 @@ public class ArcHelper {
 
     public ArcHelper setDefaultColor(String defaultColor) {
         this.defaultColor = defaultColor;
-        arcPointer.setDefaultColor(defaultColor);
         return this;
     }
 
     public ArcHelper setSinglePartColor(String singlePartColor) {
         this.singlePartColor = singlePartColor;
-        arcPointer.setSinglePartColor(singlePartColor);
         return this;
     }
 
     public ArcHelper setCenterTextView(TextView centerTextView, String centerText) {
         this.centerTextView = centerTextView;
         this.centerTextView.setText(centerText);
+        return this;
+    }
+
+    public ArcHelper setArcPointer(ArcPointer arcPointer) {
+        this.arcPointer = arcPointer;
         return this;
     }
 
@@ -170,7 +171,6 @@ public class ArcHelper {
 
     public ArcHelper setGaugeType(int gaugeType) {
         this.gaugeType = gaugeType;
-        arcPointer.setGaugeType(gaugeType);
         return this;
     }
 

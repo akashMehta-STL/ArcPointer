@@ -172,6 +172,9 @@ public class ArcPointer extends View {
                 }
 
                 if (i > compareVal) {
+                    if (defaultColor == null) {
+                        defaultColor = "#FF999999";
+                    }
                     paint.setColor(Color.parseColor(defaultColor));
                 } else {
                     try {
