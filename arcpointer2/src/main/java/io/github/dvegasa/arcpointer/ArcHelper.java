@@ -64,12 +64,13 @@ public class ArcHelper {
 
     public static ArcHelper getSinglePartArc(Context context,
                                              int max, int min,
-                                             String[] colorRange, int notchReading) {
+                                             String singlePartColor,
+                                             int notchReading) {
         return ArcHelper.getInstance(context)
                 .setTotalRangeMax(max)
                 .setTotalRangeMin(min)
                 .setRangeList(new float[]{6})
-                .setColorList(colorRange)
+                .setSinglePartColor(singlePartColor)
                 .setNotchReading(notchReading)
                 .setGaugeType(ArcPointer.TYPE_SINGLE_PART_GAUGE);
     }
