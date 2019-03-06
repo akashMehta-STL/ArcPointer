@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 
@@ -210,7 +211,7 @@ public class ArcPointer extends View {
                                 break;
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Log.w("ArcPointer:214", e.getMessage());
                     }
 
                 }
