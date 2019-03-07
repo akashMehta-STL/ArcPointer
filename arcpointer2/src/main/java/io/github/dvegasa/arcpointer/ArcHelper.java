@@ -21,7 +21,6 @@ public class ArcHelper {
     private static final int RADIUS = 170;
     private Context context;
     private ArcPointer arcPointer;
-
     private int totalRangeMin;
     private int totalRangeMax;
     private int gaugeType;
@@ -190,6 +189,19 @@ public class ArcHelper {
         this.colorList = colorList;
         return this;
     }
+
+    public int getTotalRangeMin() {
+        return totalRangeMin;
+    }
+
+    public int getTotalRangeMax() {
+        return totalRangeMax;
+    }
+
+    public int getNotchReading() {
+        return notchReading;
+    }
+
 
     private float getValuePos(float min, float max, float value) {
         return ((value - min) * 100) / (max - min);
