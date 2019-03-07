@@ -2,9 +2,9 @@ package io.github.dvegasa.arcpointer;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
 public class ArcHelper {
 
@@ -27,7 +27,7 @@ public class ArcHelper {
     private int gaugeType;
     private int notchReading = 0;
     private int maxNotchReading;
-    private TextView centerTextView;
+    private View centerView;
 
     private String defaultColor;
     private String singlePartColor;
@@ -126,10 +126,12 @@ public class ArcHelper {
         };
         handler.postDelayed(runnable, GAUGE_TEXT_FADE_DELAY);
 
-        Animation aniFade = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-        aniFade.setDuration(GAUGE_ANIMATION_DELAY * maxNotchReading);
-        if (centerTextView != null) {
-            centerTextView.startAnimation(aniFade);
+        if (context != null) {
+            Animation aniFade = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+            aniFade.setDuration(GAUGE_ANIMATION_DELAY * maxNotchReading);
+            if (centerView != null) {
+                centerView.startAnimation(aniFade);
+            }
         }
     }
 
@@ -144,9 +146,8 @@ public class ArcHelper {
         return this;
     }
 
-    public ArcHelper setCenterTextView(TextView centerTextView, String centerText) {
-        this.centerTextView = centerTextView;
-        this.centerTextView.setText(centerText);
+    public ArcHelper setCenterView(View centerView) {
+        this.centerView = centerView;
         return this;
     }
 
