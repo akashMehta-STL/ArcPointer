@@ -70,8 +70,9 @@ public class SampleActivity extends AppCompatActivity {
 //                                .startAnimation();
 
 //                        // Single part gauge
-                        ArcHelper.getSinglePartArc(SampleActivity.this, max, min, "#FF330033",
+                        ArcHelper.getSinglePartArc(max, min, "#FF330033",
                                 notchReading)
+                                .setContext(SampleActivity.this)
                                 .setArcPointer(arcPointer)
                                 .setCenterTextView(centerTextView, "120/20")
                                 .startAnimation();
