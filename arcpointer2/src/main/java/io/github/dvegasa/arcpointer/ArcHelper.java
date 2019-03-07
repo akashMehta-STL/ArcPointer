@@ -117,7 +117,6 @@ public class ArcHelper {
             public void run() {
                 if (notchReading < maxNotchReading) {
                     float value = 0.01f * notchReading;
-                    System.out.println("value = " + value);
                     if (value >= 0 && value < 1) {
                         arcPointer.setValue(value);
                         notchReading++;
