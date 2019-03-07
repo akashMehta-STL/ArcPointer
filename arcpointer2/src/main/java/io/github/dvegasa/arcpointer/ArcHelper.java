@@ -25,6 +25,8 @@ public class ArcHelper {
     private int totalRangeMax;
     private int gaugeType;
     private int notchReading = 0;
+    private Runnable runnable;
+    private Handler handler;
     private int maxNotchReading;
     private View centerView;
 
@@ -111,8 +113,8 @@ public class ArcHelper {
     }
 
     private void setAnimation() {
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 if (notchReading < maxNotchReading) {
@@ -136,6 +138,13 @@ public class ArcHelper {
         }
     }
 
+    public Runnable getRunnable() {
+        return this.runnable;
+    }
+
+    public  Handler getHandler() {
+        return this.handler;
+    }
 
     public ArcHelper setDefaultColor(String defaultColor) {
         this.defaultColor = defaultColor;
