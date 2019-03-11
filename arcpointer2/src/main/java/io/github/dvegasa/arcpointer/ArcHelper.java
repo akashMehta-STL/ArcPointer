@@ -1,5 +1,6 @@
 package io.github.dvegasa.arcpointer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
@@ -39,7 +40,7 @@ public class ArcHelper {
     public void startAnimation() {
         notchReading = 0;
         arcPointer.setNotches(NOTCH_COUNT);
-        arcPointer.setRadius(RADIUS);
+        arcPointer.setRadius(context.getResources().getDisplayMetrics().widthPixels/6);
         if (colorList != null) {
             arcPointer.setNotchesColors(colorList);
         }
