@@ -49,34 +49,37 @@ public class SampleActivity extends AppCompatActivity {
 //                                .setCenterTextView(centerTextView, "120/20")
 //                                .startAnimation();
 
-//                        // Three part gauge
-//                        // Ranges
+                        // Three part gauge
+                        // Ranges
+//                        centerTextView.setText("120/20");
 //                        float[] parameterRange = new float[]{6, 9};
 //                        String[] colorRange = new String[]{"#ff44dc91", "#fff48918", "#FFfe5965"};
-//                        ArcHelper.getThreePartArc(SampleActivity.this, max, min,
+//                        ArcHelper.getThreePartArc(max, min,
 //                                parameterRange, colorRange, notchReading)
 //                                .setArcPointer(arcPointer)
-//                                .setCenterTextView(centerTextView, "120/20")
+//                                .setCenterView(centerTextView)
 //                                .startAnimation();
 
                         // four part gauge
                         // Ranges
-//                        float[] parameterRange = new float[]{6, 9, 11};
-//                        String[] colorRange = new String[]{"#ff44dc91", "#fff48918", "#FFfe5965", "#FF16a4fa"};
-//                        ArcHelper.getFourPartGaugeMeter(SampleActivity.this, max, min,
-//                                parameterRange, colorRange, notchReading)
-//                                .setArcPointer(arcPointer)
-//                                .setCenterTextView(centerTextView, "120/20")
-//                                .startAnimation();
-
-//                        // Single part gauge
                         centerTextView.setText("120/20");
-                        ArcHelper.getSinglePartArc(max, min, "#FF330033",
-                                notchReading)
+                        float[] parameterRange = new float[]{6, 9, 11};
+                        String[] colorRange = new String[]{"#ff44dc91", "#fff48918", "#FFfe5965", "#FF16a4fa"};
+                        ArcHelper.getFourPartGaugeMeter(max, min,
+                                parameterRange, colorRange, notchReading)
                                 .setContext(SampleActivity.this)
                                 .setArcPointer(arcPointer)
                                 .setCenterView(centerTextView)
                                 .startAnimation();
+
+//                        // Single part gauge
+//                        centerTextView.setText("120/20");
+//                        ArcHelper.getSinglePartArc(max, min, "#FF330033",
+//                                notchReading)
+//                                .setContext(SampleActivity.this)
+//                                .setArcPointer(arcPointer)
+//                                .setCenterView(centerTextView)
+//                                .startAnimation();
 
 
                     }
