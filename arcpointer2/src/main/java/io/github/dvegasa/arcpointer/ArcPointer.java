@@ -92,7 +92,7 @@ public class ArcPointer extends View {
         try {
             colorBackground = a.getColor(R.styleable.ArcPointer_colorBackground, 0xFFFFFFFF);
             radius = a.getDimensionPixelSize(R.styleable.ArcPointer_radius,
-                    (int) getResources().getDimension(R.dimen.dimen_250));
+                    250);
             workAngle = a.getInt(R.styleable.ArcPointer_workAngle, 270);
             colorLine = a.getColor(R.styleable.ArcPointer_colorLine, Color.BLACK);
             colorMarker = a.getColor(R.styleable.ArcPointer_colorMarker, 0xFFEE5622);
@@ -231,10 +231,8 @@ public class ArcPointer extends View {
                 float offsetTopX, offsetTopY;
                 if (gaugeType != TYPE_TWO_MARKER_GAUGE) {
                     if (i == compareVal && value != 0) {
-                        offsetTopX = (float) ((radius + getResources().getDimension(R.dimen.dimen_15))
-                                * Math.sin(Math.toRadians(totalAngle)));
-                        offsetTopY = (float) ((radius + getResources().getDimension(R.dimen.dimen_15))
-                                * Math.cos(Math.toRadians(totalAngle)));
+                        offsetTopX = (float) ((radius + 15) * Math.sin(Math.toRadians(totalAngle)));
+                        offsetTopY = (float) ((radius + 15) * Math.cos(Math.toRadians(totalAngle)));
                     } else {
                         offsetTopX = (float) ((radius) * Math.sin(Math.toRadians(totalAngle)));
                         offsetTopY = (float) ((radius) * Math.cos(Math.toRadians(totalAngle)));
@@ -242,16 +240,13 @@ public class ArcPointer extends View {
                 } else {
                     if ((i == (int) rangeAr[0] + 1 || i == (int) rangeAr[1] || (i == compareVal
                             && compareVal < (int) rangeAr[0] + 1)) && value != 0) {
-                        offsetTopX = (float) ((radius + getResources().getDimension(R.dimen.dimen_15))
-                                * Math.sin(Math.toRadians(totalAngle)));
-                        offsetTopY = (float) ((radius + getResources().getDimension(R.dimen.dimen_15))
-                                * Math.cos(Math.toRadians(totalAngle)));
+                        offsetTopX = (float) ((radius + 15) * Math.sin(Math.toRadians(totalAngle)));
+                        offsetTopY = (float) ((radius + 15) * Math.cos(Math.toRadians(totalAngle)));
                     } else {
                         offsetTopX = (float) ((radius) * Math.sin(Math.toRadians(totalAngle)));
                         offsetTopY = (float) ((radius) * Math.cos(Math.toRadians(totalAngle)));
                     }
                 }
-
 
                 float offsetBottomX = (float) ((radius - markLength) * Math.sin(Math.toRadians(totalAngle)));
                 float offsetBottomY = (float) ((radius - markLength) * Math.cos(Math.toRadians(totalAngle)));
@@ -273,7 +268,7 @@ public class ArcPointer extends View {
 
         final float angle = additional + starting - 90;
         // end {1}
-        final float c = (radius + getResources().getDimension(R.dimen.dimen_15)) * lineLengthRatio; // line's length
+        final float c = (radius + 15) * lineLengthRatio; // line's length
         final float a = (float) (c * Math.sin(Math.toRadians(angle))); // x offset
         final float b = (float) (c * Math.cos(Math.toRadians(angle))); // y offset
 
